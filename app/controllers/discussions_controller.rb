@@ -1,10 +1,10 @@
 class DiscussionsController < ApplicationController
   def index
-    @discussions = Discussion.all
+    @discussions = current_member.discussions
   end
   
   def show
-    @discussion = Discussion.find(params[:id])
+    @discussion = current_member.discussions.find(params[:id])
   end
   
   def new
@@ -12,25 +12,25 @@ class DiscussionsController < ApplicationController
   end
   
   def create
-    discussion = Discussion.new(discussion_params)
-    discussion.save!
-    redirect_to discussions_url, notice: "ディスカッションテーマ「#{discussion.theme}」を登録しました。"
+    @discussion = Discussion.new(discussion_params.merge(member_id: cuurent_member.id)
   end
   
   def edit
-    @discussion = Discussion.find(params[:id])
+    @discussion = current_member.discussions.find(params[:id])
   end
   
   def update 
-    discussion = Discussion.find(params[:id])
+    discussion = current_member.discussions.find(params[:id])
     discussion.update!(discussion_params)
     redirect_to discussions_url, notice: "ディスカッションテーマ「#{discussion.theme}」を更新しました。"
   end
+  
   def destroy
-    discussion = Discussion.find(params[:id])
+    discussion = current_member.discussions.find(params[:id])
     discussion.destroy
     redirect_to discussions_url, notice: "ディスカッションテーマ「#{discussion.theme}」を削除しました。"
   end
+  
 private
   def discussion_params
     params.require(:discussion).permit(:theme, :discription)
