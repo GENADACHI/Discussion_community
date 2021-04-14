@@ -12,7 +12,9 @@ class DiscussionsController < ApplicationController
   end
   
   def create
-    @discussion = Discussion.new(discussion_params.merge(member_id: cuurent_member.id)
+    @discussion = current_member.discussions.new(discussion_params) 
+    @discussion.save
+    redirect_to @discussion, notice: "ディスカッションテーマ「#{@discussion.theme}」を登録しました。"
   end
   
   def edit

@@ -14,7 +14,7 @@ table.table.table-hover
      td = @discussion.theme
    tr
      th = Discussion.human_attribute_name(:description)
-     td = simple_format(h(@discussion.descripition),{}, sanitize:false, wrapper_tag: "div")
+     td = simple_format(h(@discussion.description),{}, sanitize:false, wrapper_tag: "div")
    tr         
      th = Discussion.human_attribute_name(:created_at)
      td = @discussion.created_at
