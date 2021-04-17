@@ -1,0 +1,26 @@
+h1 Admin::Members#index
+p Find me in app/views/admin/members/index.html.slim
+
+= link_to '新規登録', new_admin_member_path, class: 'btn btn-primary'
+
+.mb-3 
+table.table.table-hover
+thead.thead-default
+ tr 
+ th = Member.human_attribute_name(:name)
+ th = Member.human_attribute_name(:email)
+ th = Member.human_attribute_name(:admin)
+ th = Member.human_attribute_name(:created_at)
+ th = Member.human_attribute_name(:updated_at)
+ th
+tbody
+- @members.each do |member|
+tr 
+td= link_to members.name, [:admin, member]
+td= member.email
+td= member.admin?? 'あり' : 'なし'
+td= member.created_at
+td= member.updated_at
+td
+ = link_to '編集', edit_admin_member_path(member), class: 'btn btn-primary mr-3'
+ = link_to '削除', [:admin, member], method: :delete, data: {confirm: "メンバー「#{member.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
