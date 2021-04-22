@@ -12,7 +12,7 @@ class DiscussionsController < ApplicationController
   end
   
   def create
-    discussion = Discussion.new(discussion_params) 
+    discussion = Discussion.new(discussion_params)
     discussion.save!
     redirect_to discussions_url, notice: "ディスカッションテーマ「#{discussion.theme}」を登録しました。"
   end

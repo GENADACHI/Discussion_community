@@ -1,21 +1,16 @@
 Rails.application.routes.draw do
-  root 'pages#home'
-  get 'pages/home'
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  devise_for :members, controllers: { sessions: 'members/sessions' }
   
-  namespace :admin do
-  devise_for :members, controllers:{ 
-    sessions: 'members/sessions'
-    },
-    path_names: {
-      sign_in: 'login',
-      sign_out: 'logout',
-      sign_up: 'signup'
-    }
-  resources :members
-  end
+ # namespace :admin do
+  #resources :members
+
+ 
+  root 'pages#home'
+  #get '/login', to: 'sessions#new'
+  #post '/login', to: 'sessions#create'
+  #delete 'logout', to: 'sessions#destroy'
+  
+
+  #devise_for :members
   resources :discussions
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
